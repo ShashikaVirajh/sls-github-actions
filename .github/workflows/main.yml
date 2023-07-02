@@ -1,3 +1,36 @@
+# name: Deploy Notes API
+
+# on:
+#   push:
+#     branches:
+#       - main
+
+# jobs:
+#   productionDeployment:
+#     name: production-deployment
+#     runs-on: ubuntu-latest
+#     environment:
+#       name: Production
+#       url: https://test.com
+#     strategy:
+#       matrix:
+#         node-version: [18.x]
+#     steps:
+#       - uses: actions/checkout@v3
+#       - name: Use Node.js ${{ matrix.node-version }}
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: ${{ matrix.node-version }}
+#       - run: npm ci
+#       - name: Install Plugin and Deploy
+#         uses: serverless/github-action@v3.2
+#         with:
+#           args: -c "serverless plugin install --name serverless-iam-roles-per-function && serverless deploy --stage production"
+#           entrypoint: /bin/sh
+#           env:
+#           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
 name: Deploy Notes API
 
 on:
@@ -22,11 +55,10 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
-      - name: Install Plugin and Deploy
+      - name: serverless deploy
         uses: serverless/github-action@v3.2
         with:
-          args: -c "serverless plugin install --name serverless-iam-roles-per-function && serverless deploy --stage production"
-          entrypoint: /bin/sh
-          env:
+          args: deploy
+        env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
