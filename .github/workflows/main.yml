@@ -55,7 +55,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
-      - name: serverless deploy
+      - name: Install Plugin and Deploy
         uses: serverless/github-action@v3.2
         with:
           args: deploy
