@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: Production
-      url: https://test.com
+      url: https://testApp.com
     strategy:
       matrix:
         node-version: [18.x]
