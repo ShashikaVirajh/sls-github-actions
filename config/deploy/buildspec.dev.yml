@@ -1,0 +1,27 @@
+version: 0.2
+     
+phases:
+  install:
+    on-failure: ABORT 
+    runtime-versions:
+      nodejs: 18
+    commands:
+      - echo Deploying resources
+      - npm i -g serverless@3
+      - echo Install npm dependencies
+      - npm install
+  
+  build:
+    on-failure: ABORT
+    commands:
+      - echo Deploying resources
+      - serverless deploy --stage dev
+   
+artifacts:
+  files:
+    - my-artifact/*  # upload all files to S3
+  name: NotesProjectArtifact
+ 
+cache:
+  paths:
+    - node_modules/**/*
