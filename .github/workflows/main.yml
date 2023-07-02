@@ -9,6 +9,9 @@ jobs:
   productionDeployment:
     name: production-deployment
     runs-on: ubuntu-latest
+    environment:
+      name: Production
+      url: https://test.com
     strategy:
       matrix:
         node-version: [18.x]
